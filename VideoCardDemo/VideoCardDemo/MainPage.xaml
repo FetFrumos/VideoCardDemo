@@ -9,6 +9,7 @@
 
     <ContentPage.Resources>
         <conv:DebugConv x:Key="DebugConv" />
+        <conv:BgConv x:Key="BgConv"/>
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -21,7 +22,7 @@
                 VerticalOptions="FillAndExpand">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="5" BackgroundColor="Aquamarine">
+                        <Grid Padding="5" BackgroundColor="{Binding Id, Converter={StaticResource BgConv}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />

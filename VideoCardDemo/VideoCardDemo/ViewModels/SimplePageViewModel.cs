@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MLToolkit.Forms.SwipeCardView.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,15 +12,15 @@ namespace SwipeCardView.Sample.ViewModel
 {
     public class SimplePageViewModel : BasePageViewModel
     {
-        private ObservableCollection<VideoData> _cardItems;
+        private List<VideoData> _cardItems;
         private bool _isLoopCards;
         private string _message;
         private VideoData _topItem;
 
         public SimplePageViewModel()
         {
-            _cardItems = new ObservableCollection<VideoData>();
-            for (var i = 1; i <= 3; i++)
+            _cardItems = new List<VideoData>();
+            for (var i = 1; i <= 5; i++)
             {
                 _cardItems.Add(new VideoData
                 {
@@ -63,7 +64,7 @@ namespace SwipeCardView.Sample.ViewModel
             
         }
 
-        public ObservableCollection<VideoData> CardItems
+        public List<VideoData> CardItems
         {
             get => _cardItems;
             set
@@ -107,8 +108,22 @@ namespace SwipeCardView.Sample.ViewModel
 
         private void OnSwipedCommand(SwipedCardEventArgs eventArgs)
         {
-            var item = eventArgs.Item as string;
-            Message = $"{item} swiped {eventArgs.Direction}";
+            //var item = eventArgs.Item as string;
+            //Message = $"{item} swiped {eventArgs.Direction}";
+            if (TopItem != null)
+            {
+                //var curr = CardItems.FirstOrDefault(i => i.Id == TopItem.Id);
+                //curr.Source = "";
+                foreach (var item in CardItems)
+                {
+                    item.Source = "";
+                }
+
+                var tmp = new List<VideoData>();
+                tmp = CardItems;
+                CardItems = null;
+                CardItems = tmp;
+            }
         }
 
         private void OnClearItemsCommand()
