@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VideoCardDemo.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:VideoCardDemo.Conv;assembly=VideoCardDemo"
+    xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+    xmlns:videoPlayer="clr-namespace:TiqsVendor.Core.VideoPlayer;assembly=VideoCardDemo">
+
+    <ContentPage.Resources>
+        <conv:DebugConv x:Key="DebugConv" />
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <swipeCardView:SwipeCardView
+                ItemsSource="{Binding CardItems}"
+                LoopCards="{Binding IsLoopCards}"
+                SwipedCommand="{Binding SwipedCommand}"
+                TopItem="{Binding TopItem}"
+                VerticalOptions="FillAndExpand">
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5" BackgroundColor="Aquamarine">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <videoPlayer:VideoPlayer Source="{Binding Source, Converter={StaticResource DebugConv}}" />
+                            <!--
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" ImageSource="play" />
+                                <Button Grid.Column="1" ImageSource="pause" />
+                                <Button Grid.Column="2" ImageSource="stop" />
+                            </Grid>
+                            -->
+                        </Grid>
+
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
+            <Label HorizontalOptions="CenterAndExpand" Text="{Binding Message}" />
+            <StackLayout
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label Text="Loop Cards" />
+                <Switch IsToggled="{Binding IsLoopCards}" />
+            </StackLayout>
+            <Button Command="{Binding AddItemsCommand}" Text="Play" />
+            <Button Command="{Binding ClearItemsCommand}" Text="Stop" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
